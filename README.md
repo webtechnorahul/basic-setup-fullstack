@@ -1,0 +1,1 @@
+basic setup for full stack developer

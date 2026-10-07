@@ -1,0 +1,151 @@
+/* Container centered on the screen with a matching gradient background */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card Styling */
+.login-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  color: #333333;
+  font-weight: 700;
+}
+
+.login-subtitle {
+  margin: 0 0 24px 0;
+  font-size: 14px;
+  color: #666666;
+}
+
+/* Form inputs & structure */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #444444;
+  font-weight: 500;
+}
+
+.forgot-link {
+  font-size: 12px;
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.form-group input {
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #4a90e2;
+}
+
+/* Password visibility button setup */
+.password-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 60px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #4a90e2;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px;
+}
+
+/* Error UI states */
+.form-group input.input-error {
+  border-color: #d9534f;
+  background-color: #fff9f9;
+}
+
+.error-text {
+  font-size: 12px;
+  color: #d9534f;
+  margin-top: 4px;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a90e2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #357abd;
+}
+
+/* Bottom redirect link block */
+.redirect-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 24px;
+  color: #666666;
+}
+
+.redirect-text a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.redirect-text a:hover {
+  text-decoration: underline;
+}

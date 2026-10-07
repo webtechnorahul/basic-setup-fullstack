@@ -1,0 +1,59 @@
+/* Full screen wrapper centering the loading content */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f5f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Container for spinner and text layout */
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* CSS Grid/Border-based smooth rotating spinner */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e2e8f0; /* Light gray track background */
+  border-top: 5px solid #4a90e2; /* Modern blue accent color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Subtle fading animation for the loading text */
+.loading-text {
+  font-size: 16px;
+  color: #4a5568;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.5px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Keyframes for rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Keyframes for the soft text breathing effect */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

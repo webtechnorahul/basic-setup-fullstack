@@ -1,0 +1,55 @@
+.instagram-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-top: 1px solid #dbdbdb;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1;
+  max-width: 1000px;
+}
+
+.footer-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  color: #8e8e8e;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.footer-btn:hover {
+  color: #262626;
+}
+
+.footer-btn.active {
+  color: #262626;
+  font-weight: 600;
+}
+
+.footer-icon {
+  font-size: 24px;
+}
+
+.footer-label {
+  font-size: 10px;
+  margin-top: 2px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (min-width:780px) {
+    .instagram-footer{
+        left:50%;
+        transform: translateX(-50%);
+    }
+}
