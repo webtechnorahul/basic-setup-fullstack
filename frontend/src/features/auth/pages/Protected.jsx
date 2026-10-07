@@ -17,9 +17,9 @@ const Protected = () => {
     // },[]);
   return (
     <>
-    <Navbar/>
+    {/* <Navbar/> */}
     <Outlet/>
-    <Footer/>
+    {/* <Footer/> */}
     
     </>
     

@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import authRouter from './routers/auth.router.js';
 import cookieParser from 'cookie-parser';
 import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
+import aiRoutes from './routers/ai.routes.js';
 const app=express();
 
 
@@ -27,6 +28,8 @@ app.get("/",(req,res)=>{
     res.status(200).json({message:"server is running"})
 })
 app.use('/api/auth',authRouter);
+app.use('/api/ai',aiRoutes)
+
 
 app.use(notFoundHandler);
 app.use(errorHandler);
