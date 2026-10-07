@@ -5,6 +5,7 @@ import { config } from './config/config.js';
 import morgan from 'morgan';
 import authRouter from './routers/auth.router.js';
 import cookieParser from 'cookie-parser';
+import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
 const app=express();
 
 
@@ -27,9 +28,7 @@ app.get("/",(req,res)=>{
 })
 app.use('/api/auth',authRouter);
 
-
-
-
-
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export default app;

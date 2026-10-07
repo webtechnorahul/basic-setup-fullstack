@@ -6,16 +6,19 @@ import { config } from '../config/config.js';
 export const identifyUser=(req,res,next)=>{
     const token=req.cookies.token;
         if(!token){
-            res.status(403).json({message:"token not provide unauthorized access"})
+            const error = new Error("token not provide unauthorized access");
+            error.statusCode = 403;
+            return next(error);
         }
-        let decoded=null;
+        let decoded;
         try{
             decoded=jwt.verify(token,config.JWT_SECRET);
+        } catch(err) {
+            const error = new Error("unauthorized access");
+            error.statusCode = 401;
+            return next(error);
         }
-        catch(err){
-            res.status(401).json({message:'unauthorized access'})
-        }
-        req.user=decoded.id;
 
-        next();
+        req.user=decoded.id;
+        return next();
 }

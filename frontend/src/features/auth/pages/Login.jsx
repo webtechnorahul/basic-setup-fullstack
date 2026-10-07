@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/Login.css'; // Importing normal CSS file
 import { useAuth } from '../hooks/useAuth';
 import Loading from '../../../app/shared/components/Loading';
@@ -8,7 +8,7 @@ export default function Login() {
     email: '',
     password: '',
   });
-  const {loading,Login,error}=useAuth();
+  const {loading,Login,error,setError}=useAuth();
   const navigate=useNavigate();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +19,9 @@ export default function Login() {
     // Clear error when user starts typing again
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
+    }
+    if (error) {
+      setError(null);
     }
   };
 
@@ -41,12 +44,11 @@ export default function Login() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      const response=await Login({email:formData.email,password:formData.password});
-      if (response && !response.error) { 
-        alert('Login Successful!');
+      setErrors({});
+      const user=await Login({email:formData.email,password:formData.password});
+      if (user) {
         navigate('/dashboard');
       }
-      // Proceed with API call here
     }
   };
   if(loading){
@@ -57,7 +59,7 @@ export default function Login() {
       <div className="login-card">
         <h2 className="login-title">Welcome Back</h2>
         <p className="login-subtitle">Sign in to manage your account.</p>
-        {error && <div className="error-alert">{error}</div>}
+        {error && <div className="error-alert" role="alert" aria-live="assertive">{error}</div>}
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">

@@ -2,6 +2,29 @@ import {setError,setLoading,setUser} from '../state/auth.slice';
 import { userGetMeApi,userLoginApi,userRegisterApi } from '../services/auth.service';
 import { useDispatch, useSelector } from 'react-redux';
 
+const getRequestErrorMessage = (error) => {
+    const data = error?.response?.data;
+    const validationMessages = Array.isArray(data?.errors)
+        ? data.errors.flatMap((fieldError) => Object.values(fieldError))
+        : [];
+
+    if (data?.message) {
+        return validationMessages.length
+            ? `${data.message} ${validationMessages.join(' ')}`
+            : data.message;
+    }
+
+    if (validationMessages.length) {
+        return validationMessages.join(' ');
+    }
+
+    if (error?.request) {
+        return 'Unable to connect to the server. Please try again.';
+    }
+
+    return error?.message || 'Something went wrong. Please try again.';
+};
+
 // Exposes authentication state and async actions backed by the auth API and Redux.
 export const useAuth=()=>{
     const dispatch=useDispatch();
@@ -19,7 +42,8 @@ export const useAuth=()=>{
             return response.user;
         }
         catch(err){
-            dispatch(setError(err.response.data.message));
+            dispatch(setError(getRequestErrorMessage(err)));
+            return null;
         }
         finally{
             dispatch(setLoading(false));
@@ -32,11 +56,12 @@ export const useAuth=()=>{
             dispatch(setError(null));
             dispatch(setLoading(true));
             const response=await userRegisterApi({fullName,email,password})
-            console.log(response.user);
             dispatch(setUser(response.user));
+            return response.user;
         }
         catch(err){
-            dispatch(setError(err.response.data.message));
+            dispatch(setError(getRequestErrorMessage(err)));
+            return null;
         }
         finally{
             dispatch(setLoading(false));
@@ -54,7 +79,8 @@ export const useAuth=()=>{
             
         }
         catch(err){
-            dispatch(setError(err.response.data.message));
+            dispatch(setError(getRequestErrorMessage(err)));
+            return null;
         }
         finally{
             dispatch(setLoading(false));

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/Register.css'; // Importing normal CSS file
 import { useAuth } from '../hooks/useAuth';
 import Loading from '../../../app/shared/components/Loading';
@@ -11,7 +11,7 @@ export default function Register() {
     password: '',
     confirmPassword: '',
   });
-  const {loading,error,Register}=useAuth()
+  const {loading,error,Register,setError}=useAuth()
   const navigate=useNavigate();
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -23,11 +23,19 @@ export default function Register() {
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
+    if (error) {
+      setError(null);
+    }
   };
 
   const validate = () => {
     let newErrors = {};
-    if (!formData.FullName.trim()) newErrors.username = 'Username is required';
+    if (!formData.FullName.trim()) newErrors.FullName = 'Full name is required';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email address';
+    }
     if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
@@ -43,12 +51,15 @@ export default function Register() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      const response=await Register({
+      setErrors({});
+      const user=await Register({
         fullName:formData.FullName,
         email:formData.email,
         password:formData.password
       })
-      // Proceed with API call here
+      if (user) {
+        navigate('/dashboard');
+      }
     }
   };
 
@@ -61,7 +72,7 @@ export default function Register() {
       <div className="register-card">
         <h2 className="register-title">Create an Account</h2>
         <p className="register-subtitle">Sign up to get started today.</p>
-        {error && <div className="error-alert">{error}</div>}
+        {error && <div className="error-alert" role="alert" aria-live="assertive">{error}</div>}
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">
